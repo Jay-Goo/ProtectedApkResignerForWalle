@@ -78,7 +78,7 @@ os.system(checkV2Shell)
 writeChannelShell = "java -jar " + walleChannelWritterPath + " batch -f " + channelFilePath + " " + signedApkPath + " " + outputFilePath
 os.system(writeChannelShell)
 
-print "\n**** Finish! Please Check the 'Channels' Folder in your root Floder ! ****\n"
+print ("\n**** Finish! Please Check the 'Channels' Folder in your root Floder ! ****\n")
 
 
 
