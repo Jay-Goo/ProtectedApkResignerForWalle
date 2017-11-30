@@ -43,13 +43,13 @@ libPath = parentPath + "lib" + getBackslash()
 buildToolsPath =  config.sdkBuildToolPath + getBackslash()
 checkAndroidV2SignaturePath = libPath + "CheckAndroidV2Signature.jar"
 walleChannelWritterPath = libPath + "walle-cli-all.jar"
-outputFilePath = parentPath + "channels"
-channelFilePath = parentPath +"channel"
+outputFilePath = config.outputFilePath
+channelFilePath = config.channelFilePath
 keystorePath = config.keystorePath
 keyAlias = config.keyAlias
 keystorePassword = config.keystorePassword
 keyPassword = config.keyPassword
-protectedSourceApkPath = parentPath + config.protectedSourceApkName
+protectedSourceApkPath = config.protectedSourceApkPath
 
 zipalignedApkPath = protectedSourceApkPath[0 : -4] + "_aligned.apk"
 signedApkPath = zipalignedApkPath[0 : -4] + "_signed.apk"
