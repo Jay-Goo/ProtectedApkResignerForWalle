@@ -9,8 +9,12 @@
 - 各种渠道的定义是在channel这个文件中，请根据项目情况修改
 - 运行命令 `python ApkResigner.py`,即可自动生成所有渠道包。
 ----------
+
+# 运行注意事项：
+[必看！！]https://github.com/Jay-Goo/ProtectedApkResignerForWalle/wiki/Run-Attentions
+
 # Wiki
-更多用法和注意事项请参看[wiki](https://github.com/Jay-Goo/ProtectedApkResignerForWalle/wiki)
+更多用法和常见问题讨论请参看[wiki](https://github.com/Jay-Goo/ProtectedApkResignerForWalle/wiki)
 
 ----------
 # 支持平台：（需要python环境）
