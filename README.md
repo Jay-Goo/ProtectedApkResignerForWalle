@@ -11,7 +11,7 @@
 ----------
 
 # 运行注意事项：
-[必看！！]https://github.com/Jay-Goo/ProtectedApkResignerForWalle/wiki/Run-Attentions
+[！！必看！！](https://github.com/Jay-Goo/ProtectedApkResignerForWalle/wiki/Run-Attentions)
 
 # Wiki
 更多用法和常见问题讨论请参看[wiki](https://github.com/Jay-Goo/ProtectedApkResignerForWalle/wiki)
