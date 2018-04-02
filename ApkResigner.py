@@ -56,7 +56,7 @@ def cleanTempResource():
  # 清空渠道信息
 def cleanChannelsFiles():
   try:
-    os.makedirs(channelsOutputFilePath)
+    shutil.rmtree(channelsOutputFilePath)
     pass
   except Exception:
     pass
@@ -104,11 +104,13 @@ checkCustomPath()
 zipalignedApkPath = protectedSourceApkPath[0 : -4] + "_aligned.apk"
 signedApkPath = zipalignedApkPath[0 : -4] + "_signed.apk"
 
-# 创建Channels输出文件夹
-createChannelsDir()
 
 #清空Channels输出文件夹
 cleanChannelsFiles()
+
+
+# 创建Channels输出文件夹
+createChannelsDir()
 
 
 #对齐
