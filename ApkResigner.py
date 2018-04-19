@@ -122,7 +122,11 @@ checkV2Shell = "java -jar " + checkAndroidV2SignaturePath + " " + signedApkPath;
 os.system(checkV2Shell)
 
 #写入渠道
-writeChannelShell = "java -jar " + walleChannelWritterPath + " batch -f " + channelFilePath + " " + signedApkPath + " " + channelsOutputFilePath
+if len(config.extraChannelFilePath) > 0:
+  writeChannelShell = "java -jar " + walleChannelWritterPath + " batch2 -f " + config.extraChannelFilePath + " " + signedApkPath + " " + channelsOutputFilePath
+else:
+  writeChannelShell = "java -jar " + walleChannelWritterPath + " batch -f " + channelFilePath + " " + signedApkPath + " " + channelsOutputFilePath
+
 os.system(writeChannelShell)
 
 cleanTempResource()
