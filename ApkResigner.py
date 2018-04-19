@@ -56,7 +56,7 @@ def cleanTempResource():
  # 清空渠道信息
 def cleanChannelsFiles():
   try:
-    shutil.rmtree(channelsOutputFilePath)
+    os.makedirs(channelsOutputFilePath)
     pass
   except Exception:
     pass
@@ -68,18 +68,6 @@ def createChannelsDir():
     pass
   except Exception:
     pass
-
-# 检查自定义路径，并作替换
-def checkCustomPath():
-  if len(config.protectedSourceApkDirPath) > 0:
-    protectedSourceApkPath = config.protectedSourceApkDirPath + getBackslash() + config.protectedSourceApkName
-
-  if len(config.channelsOutputFilePath) > 0:
-    channelsOutputFilePath = config.channelsOutputFilePath
-
-  if len(config.channelFilePath) > 0:
-    channelFilePath = config.channelFilePath
-
 
     
 #当前脚本文件所在目录
@@ -98,19 +86,26 @@ channelsOutputFilePath = parentPath + "channels"
 channelFilePath = parentPath +"channel"
 protectedSourceApkPath = parentPath + config.protectedSourceApkName
 
+
 # 检查自定义路径，并作替换
-checkCustomPath()
+if len(config.protectedSourceApkDirPath) > 0:
+  protectedSourceApkPath = config.protectedSourceApkDirPath + getBackslash() + config.protectedSourceApkName
+
+if len(config.channelsOutputFilePath) > 0:
+  channelsOutputFilePath = config.channelsOutputFilePath
+
+if len(config.channelFilePath) > 0:
+  channelFilePath = config.channelFilePath
+
 
 zipalignedApkPath = protectedSourceApkPath[0 : -4] + "_aligned.apk"
 signedApkPath = zipalignedApkPath[0 : -4] + "_signed.apk"
 
+# 创建Channels输出文件夹
+createChannelsDir()
 
 #清空Channels输出文件夹
 cleanChannelsFiles()
-
-
-# 创建Channels输出文件夹
-createChannelsDir()
 
 
 #对齐
@@ -132,9 +127,9 @@ os.system(writeChannelShell)
 
 cleanTempResource()
 
-print "\n**** =============================TASK FINISHED=================================== ****\n"
-print "\n↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓   Please check channels in the path   ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓\n"
-print "\n"+channelsOutputFilePath+"\n"
-print "\n**** =============================TASK FINISHED=================================== ****\n"
+print ("\n**** =============================TASK FINISHED=================================== ****\n")
+print ("\n↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓   Please check channels in the path   ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓\n")
+print ("\n"+channelsOutputFilePath+"\n")
+print ("\n**** =============================TASK FINISHED=================================== ****\n")
 
 
