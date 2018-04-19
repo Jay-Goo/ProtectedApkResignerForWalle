@@ -21,7 +21,8 @@
 - Windows (Test)
 - Mac OS (Test)
 - Linux
-python2.x版本正常，python3.x待测试
+
+注意：python2.x版本正常，python3.x待测试
 ----------
 # 问题讨论
 [讨论传送门>>>](https://github.com/Meituan-Dianping/walle/wiki/360%E5%8A%A0%E5%9B%BA%E5%A4%B1%E6%95%88%EF%BC%9F)
