@@ -16,5 +16,8 @@ protectedSourceApkDirPath = ""
 channelsOutputFilePath = ""
 #渠道名配置文件路径，默认在此文件夹根目录
 channelFilePath = ""
+#额外信息配置文件（绝对路径，例如/Users/mac/Desktop/walle360/config.json）
+#配置信息示例参看https://github.com/Meituan-Dianping/walle/blob/master/app/config.json
+extraChannelFilePath = ""
 #Android SDK buidtools path , please use above 25.0+
 sdkBuildToolPath = "/Users/mac/Library/Android/sdk/build-tools/26.0.2"
