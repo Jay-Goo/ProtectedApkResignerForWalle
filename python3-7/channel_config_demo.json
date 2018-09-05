@@ -1,0 +1,18 @@
+{
+  "channelInfoList": [
+    {
+      "channel": "aaa",
+      "alias": "渠道a",
+      "extraInfo": {
+        "key": "aa"
+      }
+    },
+    {
+      "channel": "bbb",
+      "alias": "渠道b",
+      "extraInfo": {
+        "key": "bb"
+      }
+    }
+  ]
+}
