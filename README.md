@@ -25,7 +25,7 @@ jiagu360_home = "H:\工作\\360加固\\360jiagubao_windows_64\\jiagu"  # 360加�
 apk_signer_home = ""
 ```
 双击run.vbs即可运行
-![python3.7 windows环境下图形界面打包(运行截图如下)](screenshot\\main_frame.png)
+![python3.7 windows环境下图形界面打包(运行截图如下)](https://github.com/heqinghqocsh/ProtectedApkResignerForWalle/blob/master/screenshot/main_frame.png)
 
 
 # 运行注意事项：
