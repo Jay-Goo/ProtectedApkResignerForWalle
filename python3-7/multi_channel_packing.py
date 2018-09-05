@@ -13,7 +13,9 @@ ksPass = "123456"
 keyPass = '123456'
 wallePath = ".\\walle-cli-all.jar"
 config_channel_path = ".\\channel_config_demo.json"
-jiagu360_home = ""  # 360加固主目录http://jiagu.360.cn/#/global/help/164
+jiagu360_home = "H:\工作\\360加固\\360jiagubao_windows_64\\jiagu"  # 360加固主目录，配置文档见：http://jiagu.360.cn/#/global/help/164
+# apk_signer_home的主目录,一般是在android SDK的build-tools目录下，例如: E:\\Develop_Software\\Android\\sdk\\build-tools\\28.0.2
+apk_signer_home = ""
 
 
 def deal_protected_apk_dir():
@@ -30,7 +32,11 @@ def sign_apk():
     # 签名，注意需要将build-tools路径配置到环境变量中（例如：E:\Develop_Software\Android\sdk\build-tools\27.0.2）
     global signedApkPath
     signedApkPath = protectedApkDir + protectedApkName + "_signed.apk"
-    sign_shell = "apksigner sign -ks " + signKeyPath + " -ks-key-alias " + keyAlias + " -ks-pass pass:" + \
+    apk_signer_path = apk_signer_path_var.get().strip()
+    if apk_signer_path != "":
+        apk_signer_path = apk_signer_path + "\\"
+
+    sign_shell = apk_signer_path + "apksigner sign -ks " + signKeyPath + " -ks-key-alias " + keyAlias + " -ks-pass pass:" + \
                  ksPass + " -key-pass pass:" + keyPass + ' -out ' + signedApkPath + " " + protectedApkPath
     print(sign_shell)
     os.system(sign_shell)
@@ -139,8 +145,16 @@ label360 = Label(root, text="360加固的主目录：")
 label360.pack()  # 这里的side可以赋值为LEFT  RTGHT TOP  BOTTOM
 path360 = StringVar()
 path360Edit = Entry(root, textvariable=path360)
-path360.set("H:\工作\\360加固\\360jiagubao_windows_64\\jiagu")
+path360.set(jiagu360_home)
 path360Edit.pack(fill=X)
+
+# apkSigner的主目录
+apk_signer_label = Label(root, text="apkSigner的主目录(如果已经添加到环境变量，请忽略)：")
+apk_signer_label.pack()  # 这里的side可以赋值为LEFT  RTGHT TOP  BOTTOM
+apk_signer_path_var = StringVar()
+apk_signer_Edit = Entry(root, textvariable=apk_signer_path_var)
+apk_signer_path_var.set(apk_signer_home)
+apk_signer_Edit.pack(fill=X)
 
 protected = Checkbutton(
     root, text="已经加固（选中则跳过加固步骤）",
