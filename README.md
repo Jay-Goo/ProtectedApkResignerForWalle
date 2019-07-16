@@ -2,6 +2,14 @@
 一步解决应用加固导致[Walle](https://github.com/Meituan-Dianping/walle)渠道信息失效的自动化脚本，自动生成渠道包
 
 ----------
+
+# 写在前面
+最近很多朋友问我这个脚本和walle的关系，用了这个脚本还用walle吗？在这里我来解释下：
+> 官方walle分为两部分，第一部分是打包部分，包括 `plugin` 部分和 `build.gradle` 中 `walle{...}` 脚本，另一部分是用于读取渠道号的AAR，如果你使用类似友盟等统计工具，你需要利用walle提供的aar来读取你的渠道信息，然后手动传给友盟渠道信息。在不考虑加固的情况下只需要执行类似`./gradlew clean assembleReleaseChannels`，AS会自动执行gradle中的脚本和插件进行多渠道打包。
+>
+> `ProtectedApkResignerForWalle`是用于解决walle产生的加固问题，用的是walle的打包CLI，替代的是第一部分，所以你无须引用 `plugin` 部分和 `build.gradle` 中 `walle{...}` 脚本部分，第二部分还是要正常引用的。多渠道打包时，先加固，然后把未签名的apk使用此脚本进行多渠道打包即可。
+
+----------
 # 用法：
 
 - 按照config.py文件中的注释改成自己项目配置
