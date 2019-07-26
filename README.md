@@ -18,6 +18,24 @@
 - 运行命令 `python ApkResigner.py`,即可自动生成所有渠道包。
 ----------
 
+# python3.7 windows环境下图形界面打包(运行截图如下)
+在multi_channel_packing.py文件中配置相应的信息：
+```python
+# 注意以下信息需要自己根据具体情况配置
+signKeyPath = ".\\sign_key_store.jks"
+keyAlias = "alias"
+ksPass = "123456"
+keyPass = '123456'
+wallePath = ".\\walle-cli-all.jar"
+config_channel_path = ".\\channel_config_demo.json"
+jiagu360_home = "H:\工作\\360加固\\360jiagubao_windows_64\\jiagu"  # 360加固主目录，配置文档见：http://jiagu.360.cn/#/global/help/164
+# apk_signer_home的主目录,一般是在android SDK的build-tools目录下，例如: E:\\Develop_Software\\Android\\sdk\\build-tools\\28.0.2
+apk_signer_home = ""
+```
+双击run.vbs即可运行
+![python3.7 windows环境下图形界面打包(运行截图如下)](https://github.com/heqinghqocsh/ProtectedApkResignerForWalle/blob/master/screenshot/main_frame.png)
+
+
 # 运行注意事项：
 [！！必看！！](https://github.com/Jay-Goo/ProtectedApkResignerForWalle/wiki/Run-Attentions)
 
