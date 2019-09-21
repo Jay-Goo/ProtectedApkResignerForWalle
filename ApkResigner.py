@@ -75,10 +75,11 @@ parentPath = curFileDir() + getBackslash()
 
 #config
 libPath = parentPath + "lib" + getBackslash()
-buildToolsPath =  config.sdkBuildToolPath + getBackslash()
+#所有从配置文件读取的路径使用os.path.abspath()转为绝对路径
+buildToolsPath =  os.path.abspath(config.sdkBuildToolPath) + getBackslash()
 checkAndroidV2SignaturePath = libPath + "CheckAndroidV2Signature.jar"
 walleChannelWritterPath = libPath + "walle-cli-all.jar"
-keystorePath = config.keystorePath
+keystorePath = os.path.abspath(config.keystorePath)
 keyAlias = config.keyAlias
 keystorePassword = config.keystorePassword
 keyPassword = config.keyPassword
@@ -89,13 +90,13 @@ protectedSourceApkPath = parentPath + config.protectedSourceApkName
 
 # 检查自定义路径，并作替换
 if len(config.protectedSourceApkDirPath) > 0:
-  protectedSourceApkPath = config.protectedSourceApkDirPath + getBackslash() + config.protectedSourceApkName
+  protectedSourceApkPath = os.path.abspath(config.protectedSourceApkDirPath) + getBackslash() + config.protectedSourceApkName
 
 if len(config.channelsOutputFilePath) > 0:
-  channelsOutputFilePath = config.channelsOutputFilePath
+  channelsOutputFilePath = os.path.abspath(config.channelsOutputFilePath)
 
 if len(config.channelFilePath) > 0:
-  channelFilePath = config.channelFilePath
+  channelFilePath = os.path.abspath(config.channelFilePath)
 
 
 zipalignedApkPath = protectedSourceApkPath[0 : -4] + "_aligned.apk"
@@ -123,7 +124,7 @@ os.system(checkV2Shell)
 
 #写入渠道
 if len(config.extraChannelFilePath) > 0:
-  writeChannelShell = "java -jar " + walleChannelWritterPath + " batch2 -f " + config.extraChannelFilePath + " " + signedApkPath + " " + channelsOutputFilePath
+  writeChannelShell = "java -jar " + walleChannelWritterPath + " batch2 -f " + os.path.abspath(config.extraChannelFilePath) + " " + signedApkPath + " " + channelsOutputFilePath
 else:
   writeChannelShell = "java -jar " + walleChannelWritterPath + " batch -f " + channelFilePath + " " + signedApkPath + " " + channelsOutputFilePath
 
