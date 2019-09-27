@@ -15,6 +15,7 @@ import sys
 import config
 import platform
 import shutil
+import argparse
 
 #获取脚本文件的当前路径
 def curFileDir():
@@ -75,27 +76,37 @@ parentPath = curFileDir() + getBackslash()
 
 #config
 libPath = parentPath + "lib" + getBackslash()
-buildToolsPath =  config.sdkBuildToolPath + getBackslash()
+#所有从配置文件读取的路径使用os.path.abspath()转为绝对路径
+buildToolsPath =  os.path.abspath(config.sdkBuildToolPath) + getBackslash()
 checkAndroidV2SignaturePath = libPath + "CheckAndroidV2Signature.jar"
 walleChannelWritterPath = libPath + "walle-cli-all.jar"
-keystorePath = config.keystorePath
+keystorePath = os.path.abspath(config.keystorePath)
 keyAlias = config.keyAlias
 keystorePassword = config.keystorePassword
 keyPassword = config.keyPassword
 channelsOutputFilePath = parentPath + "channels"
+channelList = config.channelList
 channelFilePath = parentPath +"channel"
 protectedSourceApkPath = parentPath + config.protectedSourceApkName
 
 
 # 检查自定义路径，并作替换
 if len(config.protectedSourceApkDirPath) > 0:
-  protectedSourceApkPath = config.protectedSourceApkDirPath + getBackslash() + config.protectedSourceApkName
+  protectedSourceApkPath = os.path.abspath(config.protectedSourceApkDirPath) + getBackslash() + config.protectedSourceApkName
 
 if len(config.channelsOutputFilePath) > 0:
-  channelsOutputFilePath = config.channelsOutputFilePath
+  channelsOutputFilePath = os.path.abspath(config.channelsOutputFilePath)
 
 if len(config.channelFilePath) > 0:
-  channelFilePath = config.channelFilePath
+  channelFilePath = os.path.abspath(config.channelFilePath)
+
+# 读取命令携带的渠道列表参数，如果有读取到，则覆盖配置文件中的值
+parser = argparse.ArgumentParser(usage="python ApkResginer.py -c meituan,meituan2,meituan3", description="help info.")
+parser.add_argument("--channelList", "-c", help="The specified channel list configuration, if configured, has a higher priority than channelFilePath, and channelFilePath will be invalid. Channel names are separated by commas. -c is a short parameter, such as \"-c meituan,meituan2,meituan3\", --channelList= is a long parameter, such as \"--channelList=meituan,meituan2,meituan3\"", dest="channelList")
+# 将变量以标签-值的字典形式存入args字典
+args = parser.parse_args()
+if isinstance(args.channelList, str) and len(args.channelList) > 0:
+  channelList = args.channelList
 
 
 zipalignedApkPath = protectedSourceApkPath[0 : -4] + "_aligned.apk"
@@ -123,7 +134,9 @@ os.system(checkV2Shell)
 
 #写入渠道
 if len(config.extraChannelFilePath) > 0:
-  writeChannelShell = "java -jar " + walleChannelWritterPath + " batch2 -f " + config.extraChannelFilePath + " " + signedApkPath + " " + channelsOutputFilePath
+  writeChannelShell = "java -jar " + walleChannelWritterPath + " batch2 -f " + os.path.abspath(config.extraChannelFilePath) + " " + signedApkPath + " " + channelsOutputFilePath
+elif len(channelList) > 0:
+  writeChannelShell = "java -jar " + walleChannelWritterPath + " batch -c " + channelList + " " + signedApkPath + " " + channelsOutputFilePath
 else:
   writeChannelShell = "java -jar " + walleChannelWritterPath + " batch -f " + channelFilePath + " " + signedApkPath + " " + channelsOutputFilePath
 
