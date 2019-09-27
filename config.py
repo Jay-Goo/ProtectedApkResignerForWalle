@@ -14,6 +14,8 @@ protectedSourceApkName = "your protected.apk"
 protectedSourceApkDirPath = ""
 #渠道包输出路径，默认在此文件夹Channels目录下
 channelsOutputFilePath = ""
+#指定的渠道列表配置，如有配置，则它的优先级高于channelFilePath，channelFilePath将会失效。渠道名间用英文逗号分隔。如"meituan,meituan2,meituan3"
+channelList = ""
 #渠道名配置文件路径，默认在此文件夹根目录
 channelFilePath = ""
 #额外信息配置文件（绝对路径或相对路径，例如/Users/mac/Desktop/walle360/config.json）

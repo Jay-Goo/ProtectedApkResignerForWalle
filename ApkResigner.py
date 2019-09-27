@@ -15,6 +15,7 @@ import sys
 import config
 import platform
 import shutil
+import argparse
 
 #获取脚本文件的当前路径
 def curFileDir():
@@ -84,6 +85,7 @@ keyAlias = config.keyAlias
 keystorePassword = config.keystorePassword
 keyPassword = config.keyPassword
 channelsOutputFilePath = parentPath + "channels"
+channelList = config.channelList
 channelFilePath = parentPath +"channel"
 protectedSourceApkPath = parentPath + config.protectedSourceApkName
 
@@ -97,6 +99,14 @@ if len(config.channelsOutputFilePath) > 0:
 
 if len(config.channelFilePath) > 0:
   channelFilePath = os.path.abspath(config.channelFilePath)
+
+# 读取命令携带的渠道列表参数，如果有读取到，则覆盖配置文件中的值
+parser = argparse.ArgumentParser(usage="python ApkResginer.py -c meituan,meituan2,meituan3", description="help info.")
+parser.add_argument("--channelList", "-c", help="The specified channel list configuration, if configured, has a higher priority than channelFilePath, and channelFilePath will be invalid. Channel names are separated by commas. -c is a short parameter, such as \"-c meituan,meituan2,meituan3\", --channelList= is a long parameter, such as \"--channelList=meituan,meituan2,meituan3\"", dest="channelList")
+# 将变量以标签-值的字典形式存入args字典
+args = parser.parse_args()
+if isinstance(args.channelList, str) and len(args.channelList) > 0:
+  channelList = args.channelList
 
 
 zipalignedApkPath = protectedSourceApkPath[0 : -4] + "_aligned.apk"
@@ -125,6 +135,8 @@ os.system(checkV2Shell)
 #写入渠道
 if len(config.extraChannelFilePath) > 0:
   writeChannelShell = "java -jar " + walleChannelWritterPath + " batch2 -f " + os.path.abspath(config.extraChannelFilePath) + " " + signedApkPath + " " + channelsOutputFilePath
+elif len(channelList) > 0:
+  writeChannelShell = "java -jar " + walleChannelWritterPath + " batch -c " + channelList + " " + signedApkPath + " " + channelsOutputFilePath
 else:
   writeChannelShell = "java -jar " + walleChannelWritterPath + " batch -f " + channelFilePath + " " + signedApkPath + " " + channelsOutputFilePath
 
